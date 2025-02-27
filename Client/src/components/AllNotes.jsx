@@ -65,7 +65,7 @@ const AllNotes = ({notes, setNotes}) => {
   return (
     <>
       {notes.length > 0 ? (
-        <Box sx={{display : 'flex'}}>
+        <Box sx={{display : 'flex', flexWrap : 'wrap', justifyContent : 'center'}}>
           {notes.map((note) => {
             return (
               <>
