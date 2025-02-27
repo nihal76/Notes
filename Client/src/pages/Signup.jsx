@@ -11,7 +11,10 @@ const Signup = () => {
 
   const handleSubmit = async(e) => {
     e.preventDefault();
-    const result = await axios.post(`http://localhost:3000/auth/signup`,{username,email,password});
+    const result = await axios.post(
+      `https://notes-server-j1h4.onrender.com/auth/signup`,
+      { username, email, password }
+    );
      setmsg(result.data.message)
   };
 

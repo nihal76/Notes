@@ -16,7 +16,7 @@ const SidebarSort = ({notes, setNotes}) => {
   useEffect(() => {
     const sortNotes = async () => {
       const result = await axios.get(
-        `http://localhost:3000/notes/sortbytitle?username=${User.username}&sortOrder=${sortOrder}`,
+        `https://notes-server-j1h4.onrender.com/notes/sortbytitle?username=${User.username}&sortOrder=${sortOrder}`,
         {
           headers: { Authorization: `${token || ""}` },
         }

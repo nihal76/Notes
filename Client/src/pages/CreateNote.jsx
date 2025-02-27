@@ -13,7 +13,7 @@ const CreateNote = () => {
   const handleSubmit =async (e) => {
     e.preventDefault();
    const result = await axios.post(
-     `http://localhost:3000/createNote/${User.username}`,
+     `https://notes-server-j1h4.onrender.com/createNote/${User.username}`,
      {
        title,
        description,

@@ -49,7 +49,10 @@ const Signin = () => {
     e.preventDefault();
     let result;
     try {
-      result = await axios.post("http://localhost:3000/auth/login", form);
+      result = await axios.post(
+        "https://notes-server-j1h4.onrender.com/auth/login",
+        form
+      );
       // store token in local storage
       localStorage.setItem("token", result.data.token);
       const user = JSON.parse(atob(result.data.token.split(".")[1]));

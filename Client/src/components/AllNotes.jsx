@@ -22,7 +22,7 @@ const AllNotes = ({notes, setNotes}) => {
   useEffect(() => {
     async function fetchNotes(){
        const result = await axios.get(
-         `http://localhost:3000/notes/${User.username}`,
+         `https://notes-server-j1h4.onrender.com/notes/${User.username}`,
          {
            headers: { Authorization: `${token || ""}` },
          }
@@ -37,7 +37,7 @@ const AllNotes = ({notes, setNotes}) => {
   // delete note
   const deleteNote =async (noteId) => {
     const result = await axios.delete(
-      `http://localhost:3000/deletenote/${noteId}`,
+      `https://notes-server-j1h4.onrender.com/deletenote/${noteId}`,
       {
         headers: { Authorization: `${token || ""}` },
       }
@@ -48,7 +48,7 @@ const AllNotes = ({notes, setNotes}) => {
   const editNote = async (noteId) => {
     console.log('note id', noteId)
     const result = await axios.put(
-      `http://localhost:3000/editnote/${noteId}`,
+      `https://notes-server-j1h4.onrender.com/editnote/${noteId}`,
       editText,
       {
         headers: { Authorization: `${token || ""}` },

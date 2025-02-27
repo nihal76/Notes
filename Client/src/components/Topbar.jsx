@@ -31,7 +31,7 @@ const [current,setcurrent] = useState('Home')
 const Search = async (searchText) => {
   console.log('searching..', searchText)
   const result = await axios.get(
-    `http://localhost:3000/searchNotes?username=${user.username}&searchTerm=${search}`,
+    `https://notes-server-j1h4.onrender.com/searchNotes?username=${user.username}&searchTerm=${search}`,
     {
       headers: { Authorization: `${token || ""}` },
     }

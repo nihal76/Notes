@@ -21,7 +21,7 @@ const Profile = ({ userinfo,setuserinfo, notes, setNotes }) => {
   const editProfile = async() => {
     console.log('to be updated ', edittext)
       const result = await axios.put(
-        `http://localhost:3000/users/update/${userinfo.username}`,
+        `https://notes-server-j1h4.onrender.com/users/update/${userinfo.username}`,
         edittext,
         {
           headers: { Authorization: `${token || ""}` },
@@ -39,7 +39,7 @@ const Profile = ({ userinfo,setuserinfo, notes, setNotes }) => {
 
   const logout = async() => {
     const result = axios.delete(
-      `http://localhost:3000/users/delete/${userinfo.username}`
+      `https://notes-server-j1h4.onrender.com/users/delete/${userinfo.username}`
     );
     // update context api
     setIsLogged(false);

@@ -14,7 +14,9 @@ const Home = ({notes, setNotes}) => {
    
    useEffect(() => {
       const fetchUser = async (params) => {
-        const result = await axios.get(`http://localhost:3000/users/${User.username}`);
+        const result = await axios.get(
+          `https://notes-server-j1h4.onrender.com/users/${User.username}`
+        );
         if(result.status === 200){
           setuserinfo(result.data)
         }
