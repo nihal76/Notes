@@ -84,6 +84,17 @@ const AllNotes = ({notes, setNotes}) => {
 
   return (
     <>
+      <Typography variant="h4"  sx={{
+          fontSize: {
+              xs: "1.2em",
+              sm: "1.5em",
+              md: "2.2em",
+              lg: "2.5em",
+          },
+          mb: 2
+      }} >
+        My Notes
+      </Typography>
       {notes.length > 0 ? (
         <Box
           sx={{ display: "flex", flexWrap: "wrap", gap: "1em", width: "80vw" }}
@@ -188,14 +199,14 @@ const AllNotes = ({notes, setNotes}) => {
       ) : (
         <Typography
           sx={{
-            textAlign: "center",
             fontSize: {
-              xs: "1.2em",
-              sm: "1.5em",
-              md: "2.2em",
-              lg: "2.5em",
+              xs: "1em",
+              sm: "1.2em",
+              md: "1.5em",
+              lg: "2em",
             },
           }}
+          variant='body1'
         >
           No Notes found
         </Typography>

@@ -22,7 +22,7 @@ const CreateNoteCard = () => {
   return (
     <Card
       sx={{
-        width: "60%",
+        width: "40%",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",

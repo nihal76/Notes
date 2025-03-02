@@ -25,7 +25,7 @@ const Home = ({notes, setNotes}) => {
    },[])
 
   return (
-    <Box sx={{ display: "flex" , gap : '1em'}}>
+    <Box sx={{ display: "flex" ,gap:'0.3em'}}>
       { User.isLogged ?  <Sidebar notes={notes} setNotes={setNotes} userinfo ={userinfo} setuserinfo={setuserinfo}/> : null}
       <Box>
         <CreateNoteCard />

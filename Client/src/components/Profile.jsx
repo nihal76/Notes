@@ -71,7 +71,6 @@ const Profile = ({ userinfo,setuserinfo, notes, setNotes }) => {
                 display: "flex",
                 flexDirection: "column",
                 gap: "1em",
-                
               }}
             >
               <Typography variant="h5">Profile</Typography>
@@ -88,6 +87,8 @@ const Profile = ({ userinfo,setuserinfo, notes, setNotes }) => {
                 <Typography>Username</Typography>
                 <TextField
                   value={edittext.username}
+                  multiline
+                  overflow="auto"
                   onChange={(e) =>
                     setedittext({ ...edittext, username: e.target.value })
                   }
@@ -97,6 +98,7 @@ const Profile = ({ userinfo,setuserinfo, notes, setNotes }) => {
                 <Typography value={edittext.email}>Email</Typography>
                 <TextField
                   value={edittext.email}
+                 multiline
                   onChange={(e) =>
                     setedittext({ ...edittext, email: e.target.value })
                   }
@@ -104,7 +106,7 @@ const Profile = ({ userinfo,setuserinfo, notes, setNotes }) => {
               </Box>
             </>
           )}
-          <Box sx={{ mt: 1}}>
+          <Box sx={{ mt: 1 }}>
             {!edit ? (
               <Button
                 variant="contained"
@@ -122,7 +124,12 @@ const Profile = ({ userinfo,setuserinfo, notes, setNotes }) => {
               </Button>
             ) : (
               <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-                <Button color="error" variant="contained" onClick={editProfile}>
+                <Button
+                  color="error"
+                  variant="contained"
+                  onClick={editProfile}
+                  sx={{ mr: 1.5 }}
+                >
                   Save
                 </Button>
                 <Button
@@ -134,7 +141,12 @@ const Profile = ({ userinfo,setuserinfo, notes, setNotes }) => {
                 </Button>
               </Box>
             )}
-            <Button variant="contained" color="secondary" onClick={logout}>
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={logout}
+              sx={{ mt: 1.2 }}
+            >
               Logout
             </Button>
           </Box>

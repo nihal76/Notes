@@ -73,8 +73,11 @@ const CreateNote = () => {
           required
           onChange={(e) => setDescription(e.target.value)}
         />
-        <Button type="submit" variant="contained" color="primary" fullWidth>
+        <Button type="submit" variant="contained" color="primary" sx={{mb:'1em'}} fullWidth>
           Create Note
+        </Button>
+        <Button type="submit" variant="contained" color="warning" fullWidth onClick={()=>navigate('/')}>
+          Cancel
         </Button>
       </form>
     </Container>
