@@ -1,154 +1,166 @@
-import React, { useEffect, useState } from 'react';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import NoteIcon from '@mui/icons-material/Note';
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
-import CreateIcon from "@mui/icons-material/Create";
-import { Select, TextField, MenuItem } from '@mui/material';
-import SearchIcon from "@mui/icons-material/Search";
+import React, { useState, useContext } from "react";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  IconButton,
+  Button,
+  Box,
+  TextField,
+  MenuItem,
+  Select,
+} from "@mui/material";
+import {
+  Note as NoteIcon,
+  Create as CreateIcon,
+  Menu as MenuIcon,
+} from "@mui/icons-material";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { useContext } from 'react';
 import { UserContext } from "../ContextAPI/ContextProvider";
-import axios from 'axios';
-const Topbar = ({notes,setNotes}) => {
-  const location = useLocation()
-  // check if user is logged in
-  const user =  useContext(UserContext)
-  console.log('logged in ', user)
-  const navigate = useNavigate()
-// state for search
-const [search, setSearch] = React.useState('')
-// state for sort
-const [sort, setSort] = React.useState('None')
-const token = localStorage.getItem('token')
+import axios from "axios";
 
-const [current,setcurrent] = useState('Home')
+const Topbar = ({ notes, setNotes }) => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const user = useContext(UserContext);
+  const token = localStorage.getItem("token");
 
-// search Notes
-const Search = async (searchText) => {
-  console.log('searching..', searchText)
-  const result = await axios.get(
-    `https://notes-server-j1h4.onrender.com/searchNotes?username=${user.username}&searchTerm=${search}`,
-    {
-      headers: { Authorization: `${token || ""}` },
+  // State
+  const [search, setSearch] = useState("");
+  const [sort, setSort] = useState("None");
+
+  // Responsiveness
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
+  // Search Notes
+  const handleSearch = async () => {
+    if (!search.trim()) return;
+    try {
+      const result = await axios.get(
+        `https://notes-server-j1h4.onrender.com/searchNotes?username=${user.username}&searchTerm=${search}`,
+        { headers: { Authorization: `${token || ""}` } }
+      );
+      setNotes(result.status === 200 ? result.data : []);
+    } catch (error) {
+      console.error("Search error:", error);
+      setNotes([]);
     }
-  );
-  console.log('search result ..', result.data)
-    // update home page with searched notes
-    if(result.status === 200){
-      setNotes(result.data)
-    }
-    else{
-      setNotes()
-    }
-}
+  };
 
   return (
     <AppBar
       position="static"
-      sx={{ backgroundColor: "#ADD8E6", color: "black" }}
+      sx={{
+        backgroundColor: "#ADD8E6",
+        color: "black",
+        width: "100%",
+        fontSize: {
+          xs: "0.8em",
+          sm: "1em",
+          md: "1.2em",
+          lg: "1.5em",
+        },
+      }}
     >
-      <Toolbar>
-        <IconButton edge="start" color="inherit" aria-label="note">
-          <NoteIcon />
-        </IconButton>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          Note
-        </Typography>
-        {/* searching and sorting functionality  only after login*/}
-        {user.isLogged ? (
-          <Box sx={{ width: "50%" }}>
+      <Toolbar
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          flexWrap: "wrap",
+        }}
+      >
+        {/* Logo Section */}
+        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+          <IconButton color="inherit">
+            <NoteIcon />
+          </IconButton>
+          <Typography variant="h6">Note App</Typography>
+        </Box>
+
+        {/* Search & Sort Section (Visible only when logged in) */}
+        {user?.isLogged && (
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: 1,
+              flexWrap: "wrap",
+              fullwidth: "true",
+            }}
+          >
             <TextField
               label="Search"
-              variant="filled"
+              variant="outlined"
+              size="small"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              sx={{
-                mx: 2,
-                backgroundColor: "white",
-                color: "black",
-                height: "3em",
-              }}
+              sx={{ backgroundColor: "white", borderRadius: 1 }}
             />
             <Button
-              sx={{
-                backgroundColor: "darkred",
-                color: "white",
-                fontSize: "small",
-              }}
-              onClick={() => Search(search)}
+              variant="contained"
+              color="secondary"
+              onClick={handleSearch}
             >
               Search
             </Button>
           </Box>
-        ) : null}
-
-        <Button
-          color="inherit"
-          component={Link}
-          to="/"
-          sx={{
-            borderBottom: location.pathname == "/" ? "3px solid red" : null,
-          }}
-        >
-          Home
-        </Button>
-
-        {user.isLogged ? (
-          <>
-            <Button
-              color="inherit"
-              component={Link}
-              to={`/createNote/${user.username}`}
-              sx={{
-                display: "flex",
-                gap: "10px",
-                borderBottom:
-                  location.pathname == `/create/${user.username}`
-                    ? "3px solid red"
-                    : null,
-              }}
-            >
-              <h4> Create Note</h4>
-              <CreateIcon />
-            </Button>
-            <Typography variant="h6" component="div" sx={{ mx: 2 }}>
-              {user.username}
-            </Typography>
-          </>
-        ) : (
-          <>
-            <Button
-              color="inherit"
-              component={Link}
-              to="/signin"
-              sx={{
-                borderBottom:
-                  location.pathname == "/signin" ? "3px solid red" : null,
-              }}
-            >
-              Sign In
-            </Button>
-            <Button
-              color="inherit"
-              component={Link}
-              to="/signup"
-              sx={{
-                borderBottom:
-                  location.pathname == "/signup" ? "3px solid red" : null,
-              }}
-            >
-              Sign Up
-            </Button>
-          </>
         )}
+
+        {/* Navigation Links */}
+        <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+          <Button
+            component={Link}
+            to="/"
+            sx={{
+              borderBottom: location.pathname === "/" ? "3px solid red" : null,
+            }}
+          >
+            Home
+          </Button>
+
+          {user?.isLogged ? (
+            <>
+              <Button
+                component={Link}
+                to={`/createNote/${user.username}`}
+                sx={{ display: "flex", alignItems: "center", gap: 1 }}
+              >
+                <Typography variant="body1">Create Note</Typography>
+                <CreateIcon />
+              </Button>
+              <Typography variant="h6">{user.username}</Typography>
+            </>
+          ) : (
+            <>
+              <Button
+                component={Link}
+                to="/signin"
+                sx={{
+                  borderBottom:
+                    location.pathname === "/signin" ? "3px solid red" : null,
+                }}
+              >
+                Sign In
+              </Button>
+              <Button
+                component={Link}
+                to="/signup"
+                sx={{
+                  borderBottom:
+                    location.pathname === "/signup" ? "3px solid red" : null,
+                }}
+              >
+                Sign Up
+              </Button>
+            </>
+          )}
+        </Box>
       </Toolbar>
     </AppBar>
   );
 };
-
 
 export default Topbar;

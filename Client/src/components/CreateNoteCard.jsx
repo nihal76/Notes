@@ -21,10 +21,28 @@ const CreateNoteCard = () => {
 
   return (
     <Card
-      sx={{width : '25vw', display : 'flex', flexDirection : 'column', margin : '2em'}}
+      sx={{
+        width: "60%",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        margin: "2em",
+        backgroundColor: "#D0F0C0",
+      }}
     >
-      <Typography variant="h6">Click the icon to create new note</Typography>
-      <IconButton sx={{pointer : 'cursor'}} onClick={createNote}>
+      <Typography
+        sx={{
+          fontSize: {
+            xs: "0.8em",
+            sm: "1.2em",
+            md: "1.4em",
+            lg: "1.5em",
+          },
+        }}
+      >
+        Click the icon to create new note
+      </Typography>
+      <IconButton sx={{ pointer: "cursor" }} size='large' onClick={createNote}>
         <AddIcon />
       </IconButton>
     </Card>

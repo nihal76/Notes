@@ -7,6 +7,24 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 
+/**
+ * Component to display all notes for a user.
+ *
+ * @component
+ * @param {Object} props - The component props.
+ * @param {Array} props.notes - The array of notes to display.
+ * @param {Function} props.setNotes - Function to update the notes state.
+ *
+ * @returns {JSX.Element} The rendered component.
+ *
+ * @example
+ * const notes = [
+ *   { _id: '1', title: 'Note 1', description: 'Description 1' },
+ *   { _id: '2', title: 'Note 2', description: 'Description 2' }
+ * ];
+ * const setNotes = (newNotes) => console.log(newNotes);
+ * <AllNotes notes={notes} setNotes={setNotes} />
+ */
 const AllNotes = ({notes, setNotes}) => {
          const User = useContext(UserContext);
          const token = localStorage.getItem('token')
@@ -18,6 +36,8 @@ const AllNotes = ({notes, setNotes}) => {
             description : ''
           })
           const[editId, seteditId] = useState('')
+          const[hover, setHover] = useState(false)
+          const[hoverId, setHoverId] = useState('')
 
   useEffect(() => {
     async function fetchNotes(){
@@ -65,7 +85,9 @@ const AllNotes = ({notes, setNotes}) => {
   return (
     <>
       {notes.length > 0 ? (
-        <Box sx={{display : 'flex', flexWrap : 'wrap', justifyContent : 'center'}}>
+        <Box
+          sx={{ display: "flex", flexWrap: "wrap", gap: "1em", width: "80vw" }}
+        >
           {notes.map((note) => {
             return (
               <>
@@ -106,39 +128,56 @@ const AllNotes = ({notes, setNotes}) => {
                   </Box>
                 ) : (
                   <Card
+                    onMouseEnter={() => {
+                      setHover(true);
+                      setHoverId(note._id);
+                    }}
+                    onMouseLeave={() => {
+                      setHover(false);
+                      setHoverId("");
+                    }}
                     key={note._id}
                     sx={{
-                      maxWidth: 400,
-                      m: 2,
-                      p: 2,
+                      width: { xs: "75%", sm: "35%", md: "30%", lg: "25%" },
+                      fontSize: {
+                        xs: "0.8em",
+                        sm: "1em",
+                        md: "1.2em",
+                        lg: "1.5em",
+                      },
                       boxShadow: 3,
                       borderRadius: 2,
-                      bgcolor: "background.paper",
+                      bgcolor: "#D8BFD8",
+                      padding: 2,
                     }}
                   >
                     {/* edit , delete */}
-                    <Box>
-                      <IconButton
-                        color="warning"
-                        onClick={() => {
-                          setisEdit(true);
-                          seteditId(note._id);
-                          seteditText({
-                            title: note.title,
-                            description: note.description,
-                          });
-                        }}
-                      >
-                        <EditIcon />
-                      </IconButton>
-                      <IconButton
-                        color="red"
-                        onClick={() => deleteNote(note._id)}
-                      >
-                        <DeleteIcon />
-                      </IconButton>
-                    </Box>
-                    <Typography variant="h6">{note.title}</Typography>
+                    {hover && hoverId === note._id ? (
+                      <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+                        <IconButton
+                          color="warning"
+                          onClick={() => {
+                            setisEdit(true);
+                            seteditId(note._id);
+                            seteditText({
+                              title: note.title,
+                              description: note.description,
+                            });
+                          }}
+                        >
+                          <EditIcon />
+                        </IconButton>
+                        <IconButton
+                          color="error"
+                          onClick={() => deleteNote(note._id)}
+                        >
+                          <DeleteIcon />
+                        </IconButton>
+                      </Box>
+                    ) : null}
+                    <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+                      {note.title}
+                    </Typography>
                     <Typography variant="body2">{note.description}</Typography>
                   </Card>
                 )}
@@ -147,7 +186,19 @@ const AllNotes = ({notes, setNotes}) => {
           })}
         </Box>
       ) : (
-          <Typography sx={{textAlign : 'center'}}>No Notes found</Typography>
+        <Typography
+          sx={{
+            textAlign: "center",
+            fontSize: {
+              xs: "1.2em",
+              sm: "1.5em",
+              md: "2.2em",
+              lg: "2.5em",
+            },
+          }}
+        >
+          No Notes found
+        </Typography>
       )}
     </>
   );

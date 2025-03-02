@@ -3,13 +3,16 @@ import { Container, TextField, Button, Typography } from '@mui/material';
 import axios from 'axios';
 import {UserContext} from '../ContextAPI/ContextProvider'
 import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const CreateNote = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState("");
+  const[msg, setMsg] = useState('')
   const token = localStorage.getItem('token')
   // get username from context api to create note
    const User = useContext(UserContext)
+   const navigate = useNavigate()
   const handleSubmit =async (e) => {
     e.preventDefault();
    const result = await axios.post(
@@ -22,11 +25,31 @@ const CreateNote = () => {
        headers: { Authorization: `${token || ""}` },
      }
    );
+    if(result.status === 201){
+      setMsg('Note created successfully')
+      navigate('/')
+    }
   };
 
   return (
-    <Container maxWidth="sm" sx={{ marginTop: "2em" }}>
-      <Typography variant="h4" component="h1">
+    <Container
+      maxWidth="sm"
+      sx={{
+        marginTop: "2em",
+      }}
+    >
+      <Typography
+        variant="h4"
+        component="h1"
+        sx={{
+          fontSize: {
+            xs: "1.2em",
+            sm: "1.5em",
+            md: "1.8em",
+            lg: "2em",
+          },
+        }}
+      >
         Create a New Note
       </Typography>
       <form onSubmit={handleSubmit}>

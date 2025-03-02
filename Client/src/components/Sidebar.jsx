@@ -4,7 +4,7 @@ import Profile from './Profile';
 
 const Sidebar = ({ notes, setNotes, userinfo, setuserinfo }) => {
   return (
-    <div>
+    <div style={{marginTop : '2em'}}>
       <SidebarSort notes={notes} setNotes={setNotes} />
       <Profile userinfo={userinfo} setuserinfo={setuserinfo}/>
     </div>

@@ -3,6 +3,8 @@ import { RadioGroup, FormControlLabel, Radio, Typography } from '@mui/material';
 import axios from 'axios'
 import { UserContext } from "../ContextAPI/ContextProvider";
 import { useContext } from "react";
+import { Box } from '@mui/material';
+
 
 const SidebarSort = ({notes, setNotes}) => {
   const [sortOrder, setSortOrder] = React.useState('none');
@@ -30,18 +32,36 @@ const SidebarSort = ({notes, setNotes}) => {
   },[sortOrder,  User.username])
 
   return (
-    <div style={{marginLeft : '2em', marginTop : '2em'}}>
-      <Typography variant='h6'>Sorting Order</Typography>
+    <Box
+      sx={{
+        fontSize: {
+          xs: "1em",
+          sm: "1em",
+          md: "1.2em",
+          lg: "1.5em",
+        },
+        marginLeft: "1em",
+      }}
+    >
+      <Typography variant="h6" sx={{fontWeight : 'bold'}}>Sorting Order</Typography>
       <RadioGroup
         name="sort-order"
         value={sortOrder}
         onChange={handleSortChange}
       >
         <FormControlLabel value="none" control={<Radio />} label="None" />
-        <FormControlLabel value="ascending" control={<Radio />} label="Ascending" />
-        <FormControlLabel value="descending" control={<Radio />} label="Descending" />
+        <FormControlLabel
+          value="ascending"
+          control={<Radio />}
+          label="Ascending"
+        />
+        <FormControlLabel
+          value="descending"
+          control={<Radio />}
+          label="Descending"
+        />
       </RadioGroup>
-    </div>
+    </Box>
   );
 };
 

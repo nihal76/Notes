@@ -23,12 +23,29 @@ const Signup = () => {
       <Box
         sx={{
           marginTop: 8,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          fontSize: {
+            xs: "0.8em",
+            sm: "1em",
+            md: "1.2em",
+            lg: "1.5em",
+          },
         }}
       >
-        <Typography component="h2" variant="h5">
+        <Typography
+          component="h2"
+          variant="h5"
+          sx={{
+            fontSize: {
+              xs: "1.2em",
+              sm: "1.5em",
+              md: "1.8em",
+              lg: "2em",
+            },
+          }}
+        >
           Sign Up
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
@@ -76,7 +93,7 @@ const Signup = () => {
           </Button>
         </Box>
       </Box>
-      {msg ? <Typography color='error'>{msg}</Typography> : ''}
+      {msg ? <Typography color="error">{msg}</Typography> : ""}
     </Container>
   );
 };

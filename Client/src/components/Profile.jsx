@@ -56,14 +56,24 @@ const Profile = ({ userinfo,setuserinfo, notes, setNotes }) => {
         <Box
           sx={{
             p: 2,
-            backgroundColor: "#F0F8FF",
             borderRadius: "8px",
-            maxWidth: "400px",
-            margin: "auto",
           }}
         >
           {!edit ? (
-            <>
+            <Box
+              sx={{
+                fontSize: {
+                  xs: "0.8em",
+                  sm: "1em",
+                  md: "1.2em",
+                  lg: "1.5em",
+                },
+                display: "flex",
+                flexDirection: "column",
+                gap: "1em",
+                
+              }}
+            >
               <Typography variant="h5">Profile</Typography>
               <Typography variant="body1">
                 <strong>Username:</strong> {userinfo.username}
@@ -71,7 +81,7 @@ const Profile = ({ userinfo,setuserinfo, notes, setNotes }) => {
               <Typography variant="body1">
                 <strong>Email:</strong> {userinfo.email}
               </Typography>
-            </>
+            </Box>
           ) : (
             <>
               <Box>
@@ -94,11 +104,12 @@ const Profile = ({ userinfo,setuserinfo, notes, setNotes }) => {
               </Box>
             </>
           )}
-          <Box sx={{ mt: 2, display: "flex", justifyContent: "space-between" }}>
+          <Box sx={{ mt: 1}}>
             {!edit ? (
               <Button
                 variant="contained"
                 color="primary"
+                sx={{ mr: 1.5 }}
                 onClick={() => {
                   setedit(true);
                   setedittext({

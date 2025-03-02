@@ -79,8 +79,25 @@ const Signin = () => {
 
   return (
     <Container maxWidth="sm">
-      <Box sx={{ mt: 5 }}>
-        <Typography variant="h4" component="h1" gutterBottom>
+      <Box
+        sx={{
+          mt: 5,
+          fontSize: {
+            xs: "0.8em",
+            sm: "1em",
+            md: "1.2em",
+            lg: "1.5em",
+          },
+        }}
+      >
+        <Typography variant="h4" component="h1" gutterBottom sx={{
+          fontSize: {
+            xs: "1.2em",
+            sm: "1.5em",
+            md: "1.8em",
+            lg: "2em",
+          },
+        }}>
           Sign In
         </Typography>
         <form onSubmit={handleSubmit}>
