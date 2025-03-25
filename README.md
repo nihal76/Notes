@@ -40,11 +40,11 @@ PORT=5000**
 Usage
 
 Start the backend Server\
-** cd Server\
+**cd Server\
 node index.js**
 
 Start the frontend development Server\
-** cd Client\
+**cd Client\
 npm run dev**
 
 
