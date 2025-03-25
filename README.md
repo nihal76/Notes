@@ -20,7 +20,7 @@ The application uses JWT-based authentication to ensure that only authorized use
 **Installation**
 
 1.Clone the repository:\
-**git clone**
+**git clone https://github.com/nihal76/Notes**
 
 2.Navigate to backend Server inside Project Directory and install backend dependencies:\
 **cd Server\
