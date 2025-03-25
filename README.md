@@ -17,5 +17,35 @@ The application uses JWT-based authentication to ensure that only authorized use
 **Database**: MongoDB\
 **Authentication**: JWT (JSON Web Token)
 
+**Installation**
+
+1.Clone the repository:\
+**git clone **
+
+2.Navigate to backend Server inside Project Directory and install backend dependencies:\
+**cd Server\
+npm install**
+
+3.Navigate to Frontend inside Project Directory and install frontend dependencies:\
+**cd ..\
+cd Client\
+npm install**
+
+4.Configure Environment Variables:\
+**Create a .env file in the server directory and add your MongoDB connection string and JWT secret:\
+MONGO_URI=your_mongodb_connection_string\
+JWT_SECRET=your_jwt_secret_key\
+PORT=5000**
+
+Usage
+
+Start the backend Server\
+** cd Server\
+node index.js**
+
+Start the frontend development Server\
+** cd Client\
+npm run dev**
+
 
 
